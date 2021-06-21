@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 export default class User {
@@ -16,13 +17,14 @@ export default class User {
   name: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()
   username: string;
 
   @Column()
-  crm: string;
+  email: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -31,5 +33,6 @@ export default class User {
   updatedAt: Date;
 
   @DeleteDateColumn({ name: 'deleted_at' })
+  @Exclude()
   deletedAt?: Date;
 }
