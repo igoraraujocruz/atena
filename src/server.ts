@@ -1,4 +1,5 @@
-import '../src/database';
+import './database';
+import 'reflect-metadata';
 import express from 'express';
 import morgan from 'morgan';
 
