@@ -28,6 +28,13 @@
           "argsIgnorePattern": "_"
         }
       ],
+      "import/extensions": [
+        "error",
+        "ignorePackages",
+        {
+          "ts": "never"
+        }
+      ],
       "prettier/prettier": "error",
       "class-methods-use-this": "off"
     },
