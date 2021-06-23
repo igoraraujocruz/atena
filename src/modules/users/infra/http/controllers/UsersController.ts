@@ -3,9 +3,9 @@ import { container } from 'tsyringe';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import { classToClass } from 'class-transformer';
 
-export default class DoctorsController {
+export default class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, password, username, email } = request.body;
+    const { name, password, username, email, roles } = request.body;
 
     const createUser = container.resolve(CreateUserService);
 
@@ -14,6 +14,7 @@ export default class DoctorsController {
       password,
       username,
       email,
+      roles,
     });
 
     return response.status(200).json(classToClass(user));

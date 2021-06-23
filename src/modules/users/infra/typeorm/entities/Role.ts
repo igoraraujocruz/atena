@@ -8,34 +8,24 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
-import Role from './Role';
 
-@Entity('users')
-export default class User {
+import Permission from './Permission';
+
+@Entity('roles')
+export default class Role {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @Column()
-  @Exclude()
-  password: string;
-
-  @Column()
-  username: string;
-
-  @Column()
-  email: string;
-
-  @ManyToMany(() => Role)
+  @ManyToMany(() => Permission)
   @JoinTable({
-    name: 'users_roles',
-    joinColumns: [{ name: 'user_id' }],
-    inverseJoinColumns: [{ name: 'role_id' }],
+    name: 'permissions_roles',
+    joinColumns: [{ name: 'role_id' }],
+    inverseJoinColumns: [{ name: 'permission_id' }],
   })
-  roles: Role[];
+  permission: Permission[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -44,6 +34,5 @@ export default class User {
   updatedAt: Date;
 
   @DeleteDateColumn({ name: 'deleted_at' })
-  @Exclude()
   deletedAt?: Date;
 }

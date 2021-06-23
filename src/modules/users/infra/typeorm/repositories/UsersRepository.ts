@@ -2,7 +2,7 @@ import { getRepository, Repository } from 'typeorm';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import User from '@modules/users/infra/typeorm/entities/User';
 
-export default class usersRepository implements IUsersRepository {
+export default class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
 
   constructor() {
@@ -37,6 +37,14 @@ export default class usersRepository implements IUsersRepository {
       where: { id },
     });
     return findId;
+  }
+
+  public async findPermissions(payload: string) {
+    const permissions = await this.ormRepository.findOne({
+      where: { payload },
+      relations: ['roles'],
+    });
+    return permissions;
   }
 
   public async save(user: User): Promise<User> {
