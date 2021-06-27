@@ -39,9 +39,9 @@ export default class UsersRepository implements IUsersRepository {
     return findId;
   }
 
-  public async findPermissions(payload: string) {
+  public async findPermissions(id: string) {
     const permissions = await this.ormRepository.findOne({
-      where: { payload },
+      where: { id },
       relations: ['roles'],
     });
     return permissions;
