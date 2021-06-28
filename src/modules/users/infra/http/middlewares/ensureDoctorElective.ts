@@ -15,7 +15,7 @@ export default async function ensureAdmin(
 
   const userRoles = user?.roles.map(role => role.name);
 
-  if (!userRoles?.includes('administrator')) {
+  if (!userRoles?.includes('doctor_elective')) {
     throw new AppError('User does not have permission to execute');
   }
 

@@ -9,7 +9,7 @@ authRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      email: Joi.string().email().required(),
+      username: Joi.string().required(),
       password: Joi.string().required(),
     },
   }),

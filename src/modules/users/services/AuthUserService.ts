@@ -7,7 +7,7 @@ import User from '../infra/typeorm/entities/User';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 interface IRequest {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -22,13 +22,13 @@ export default class AuthUserService {
   ) {}
 
   public async execute({
-    email,
+    username,
     password,
   }: IRequest): Promise<{ user: User; token: string }> {
-    const user = await this.usersRepository.findByEmail(email);
+    const user = await this.usersRepository.findUsername(username);
 
     if (!user) {
-      throw new AppError('Incorrect email/password combinaion', 401);
+      throw new AppError('Incorrect username/password combinaion', 401);
     }
 
     const passwordMatched = await this.hashProvider.compareHash(
@@ -37,7 +37,7 @@ export default class AuthUserService {
     );
 
     if (!passwordMatched) {
-      throw new AppError('Incorrect email/password combination', 401);
+      throw new AppError('Incorrect username/password combination', 401);
     }
 
     const { secret, expiresIn } = auth.jwt;

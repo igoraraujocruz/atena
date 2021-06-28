@@ -36,13 +36,13 @@ export default class CreateRoles1624376490673 implements MigrationInterface {
       }),
     );
     await queryRunner.query(
-      `INSERT INTO roles (name) VALUES ('doctor_urgency'), ('doctor_elective'), ('assistant'), ('analyst'), ('administrator')`,
+      `INSERT INTO roles (name) VALUES ('doctor_urgency'), ('doctor_elective'), ('assistant_hospitalization'), ('analyst_hospitalization'), ('coordinator_hospitalization'), ('manager'), ('superintendent')`,
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `DELETE FROM roles WHERE name IN ('doctor_urgency'), ('doctor_elective'), ('assistant'), ('analyst'), ('administrator')`,
+      `DELETE FROM roles WHERE name IN ('doctor_urgency'), ('doctor_elective'), ('assistant_hospitalization'), ('analyst_hospitalization'), ('coordinator_hospitalization'), ('manager'), ('superintendent')`,
     );
     await queryRunner.dropTable('roles');
   }
