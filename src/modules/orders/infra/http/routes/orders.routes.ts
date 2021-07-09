@@ -10,15 +10,25 @@ const ordersController = new OrdersController();
 ordersRouter.post(
   '/',
   ensureAuthenticated,
-  ensureDoctorElective,
+  // ensureDoctorElective,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
       unimed_protocol: Joi.string().required(),
       unimed_card: Joi.string().required(),
+      type_of_hospitalization: Joi.string().required(),
+      sector: Joi.string().required(),
+      sex: Joi.string().required(),
     },
   }),
   ordersController.create,
+);
+
+ordersRouter.get(
+  '/',
+  // ensureAuthenticated,
+  // ensureDoctorElective,
+  ordersController.list,
 );
 
 export default ordersRouter;

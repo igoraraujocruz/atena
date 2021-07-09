@@ -19,4 +19,6 @@ usersRouter.post(
   usersController.create,
 );
 
+usersRouter.get('/:id', usersController.index);
+
 export default usersRouter;

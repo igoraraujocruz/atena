@@ -22,4 +22,9 @@ export default class OrdersRepository implements IOrdersRepository {
     });
     return findEmail;
   }
+
+  public async find(): Promise<Order[]> {
+    const order = await this.ormRepository.find();
+    return order;
+  }
 }

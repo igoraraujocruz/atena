@@ -5,11 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
-
-import Permission from './Permission';
 
 @Entity('roles')
 export default class Role {
@@ -18,14 +14,6 @@ export default class Role {
 
   @Column()
   name: string;
-
-  @ManyToMany(() => Permission)
-  @JoinTable({
-    name: 'permissions_roles',
-    joinColumns: [{ name: 'role_id' }],
-    inverseJoinColumns: [{ name: 'permission_id' }],
-  })
-  permission: Permission[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

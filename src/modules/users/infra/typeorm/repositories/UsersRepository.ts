@@ -35,6 +35,7 @@ export default class UsersRepository implements IUsersRepository {
   public async findById(id: string): Promise<User | undefined> {
     const findId = await this.ormRepository.findOne({
       where: { id },
+      relations: ['roles'],
     });
     return findId;
   }

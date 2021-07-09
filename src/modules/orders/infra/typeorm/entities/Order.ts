@@ -26,6 +26,20 @@ export default class Order {
   })
   unimedCard: string;
 
+  @Column({
+    name: 'type_of_hospitalization',
+  })
+  typeOfHospitalization: string;
+
+  @Column()
+  sector: string;
+
+  @Column()
+  sex: string;
+
+  @Column()
+  requester: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 

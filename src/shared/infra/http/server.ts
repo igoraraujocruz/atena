@@ -6,6 +6,7 @@ import 'express-async-errors';
 import morgan from 'morgan';
 import { isCelebrateError } from 'celebrate';
 import AppError from '@shared/errors/AppError';
+import cors from 'cors';
 import routes from './routes';
 
 require('dotenv/config');
@@ -13,6 +14,11 @@ require('dotenv/config');
 const app = express();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  }),
+);
 app.use(routes);
 app.use((error: Error, _: Request, response: Response, __: NextFunction) => {
   if (error instanceof AppError) {

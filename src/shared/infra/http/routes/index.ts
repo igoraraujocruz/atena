@@ -6,6 +6,6 @@ import authRouter from '@modules/users/infra/http/routes/auth.routes';
 const routes = Router();
 routes.use('/users', usersRouter);
 routes.use('/orders', ordersRouter);
-routes.use('/auth', authRouter);
+routes.use('/sessions', authRouter);
 
 export default routes;

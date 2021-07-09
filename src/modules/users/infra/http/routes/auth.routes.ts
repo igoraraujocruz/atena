@@ -13,7 +13,7 @@ authRouter.post(
       password: Joi.string().required(),
     },
   }),
-  authController.create,
+  authController.handle,
 );
 
 export default authRouter;

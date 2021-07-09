@@ -4,7 +4,7 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 export default class AuthController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  public async handle(request: Request, response: Response): Promise<Response> {
     const { username, password } = request.body;
 
     const authController = container.resolve(AuthUserService);

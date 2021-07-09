@@ -28,7 +28,7 @@ export default class AuthUserService {
     const user = await this.usersRepository.findUsername(username);
 
     if (!user) {
-      throw new AppError('Incorrect username/password combinaion', 401);
+      throw new AppError('Incorrect username/password combination', 401);
     }
 
     const passwordMatched = await this.hashProvider.compareHash(
