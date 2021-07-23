@@ -23,8 +23,23 @@ export default class OrdersRepository implements IOrdersRepository {
     return findEmail;
   }
 
+  public async findOrderById(id: string): Promise<Order | undefined> {
+    const findOrder = await this.ormRepository.findOne({
+      where: { id },
+    });
+    return findOrder;
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository.softDelete(id);
+  }
+
   public async find(): Promise<Order[]> {
     const order = await this.ormRepository.find();
     return order;
+  }
+
+  public async save(order: Order): Promise<Order> {
+    return this.ormRepository.save(order);
   }
 }

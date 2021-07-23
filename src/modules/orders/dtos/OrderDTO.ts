@@ -1,4 +1,5 @@
-export default interface ICreateOrderDTO {
+export default interface OrderDTO {
+  id: string;
   name: string;
   unimedProtocol: string;
   unimedCard: string;

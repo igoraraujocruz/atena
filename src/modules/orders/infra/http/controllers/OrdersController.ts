@@ -3,14 +3,16 @@ import { container } from 'tsyringe';
 import CreateOrderService from '@modules/orders/services/CreateOrderService';
 import ListOrdersServices from '@modules/orders/services/ListOrdersServices';
 import { classToClass } from 'class-transformer';
+import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
+import UpdateOrderService from '@modules/orders/services/UpdateDoctorService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const {
       name,
-      unimed_protocol,
-      unimed_card,
-      type_of_hospitalization,
+      unimedProtocol,
+      unimedCard,
+      typeOfHospitalization,
       sector,
       sex,
     } = request.body;
@@ -19,17 +21,52 @@ export default class OrdersController {
 
     const order = await createOrder.execute({
       name,
-      unimedProtocol: unimed_protocol,
-      unimedCard: unimed_card,
-      typeOfHospitalization: type_of_hospitalization,
+      unimedProtocol,
+      unimedCard,
+      typeOfHospitalization,
       sector,
       sex,
       requester: request.user.id,
     });
 
-    console.log(request.user.id);
-
     return response.status(200).json(classToClass(order));
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const {
+      name,
+      unimedProtocol,
+      unimedCard,
+      typeOfHospitalization,
+      sector,
+      sex,
+    } = request.body;
+
+    const updateOrder = container.resolve(UpdateOrderService);
+
+    const order = await updateOrder.execute({
+      id,
+      name,
+      unimedProtocol,
+      unimedCard,
+      typeOfHospitalization,
+      sector,
+      sex,
+    });
+
+    return response.json(order);
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const deleteOrder = container.resolve(DeleteOrderService);
+
+    const order = await deleteOrder.execute(id);
+
+    return response.status(204).json(order);
   }
 
   public async list(_: Request, response: Response): Promise<Response> {

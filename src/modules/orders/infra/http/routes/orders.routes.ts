@@ -14,14 +14,42 @@ ordersRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
-      unimed_protocol: Joi.string().required(),
-      unimed_card: Joi.string().required(),
-      type_of_hospitalization: Joi.string().required(),
+      unimedProtocol: Joi.string().required(),
+      unimedCard: Joi.string().required(),
+      typeOfHospitalization: Joi.string().required(),
       sector: Joi.string().required(),
       sex: Joi.string().required(),
     },
   }),
   ordersController.create,
+);
+
+ordersRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  ordersController.delete,
+);
+
+ordersRouter.put(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      unimedProtocol: Joi.string().required(),
+      unimedCard: Joi.string().required(),
+      typeOfHospitalization: Joi.string().required(),
+      sector: Joi.string().required(),
+      sex: Joi.string().required(),
+    },
+  }),
+  ordersController.update,
 );
 
 ordersRouter.get(

@@ -2,8 +2,10 @@ import { inject, injectable } from 'tsyringe';
 import Order from '@modules/orders/infra/typeorm/entities/Order';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
-import CreateOrderDTO from '@modules/orders/dtos/CreateOrderDTO';
+import OrderDTO from '@modules/orders/dtos/OrderDTO';
 import AppError from '@shared/errors/AppError';
+
+type IOrder = Omit<OrderDTO, 'id'>;
 
 @injectable()
 export default class CreateDoctorService {
@@ -22,7 +24,7 @@ export default class CreateDoctorService {
     sector,
     sex,
     requester,
-  }: CreateOrderDTO): Promise<Order> {
+  }: IOrder): Promise<Order> {
     const findByUnimedProtocol =
       await this.ordersRepository.findByUnimedProtocol(unimedProtocol);
     if (findByUnimedProtocol) {
