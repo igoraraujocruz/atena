@@ -37,10 +37,8 @@ ordersRouter.delete(
 ordersRouter.put(
   '/:id',
   celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
     [Segments.BODY]: {
+      id: Joi.string().uuid().required(),
       name: Joi.string().required(),
       unimedProtocol: Joi.string().required(),
       unimedCard: Joi.string().required(),
