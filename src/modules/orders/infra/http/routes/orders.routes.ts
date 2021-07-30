@@ -26,6 +26,7 @@ ordersRouter.post(
 
 ordersRouter.delete(
   '/:id',
+  ensureAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -36,6 +37,7 @@ ordersRouter.delete(
 
 ordersRouter.put(
   '/:id',
+  ensureAuthenticated,
   celebrate({
     [Segments.BODY]: {
       id: Joi.string().uuid().required(),
@@ -52,7 +54,7 @@ ordersRouter.put(
 
 ordersRouter.get(
   '/',
-  // ensureAuthenticated,
+  ensureAuthenticated,
   // ensureDoctorElective,
   ordersController.list,
 );
