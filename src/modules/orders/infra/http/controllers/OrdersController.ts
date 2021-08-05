@@ -26,7 +26,7 @@ export default class OrdersController {
       typeOfHospitalization,
       sector,
       sex,
-      requester: request.user.id,
+      requesterId: request.user.id,
     });
 
     return response.status(200).json(classToClass(order));

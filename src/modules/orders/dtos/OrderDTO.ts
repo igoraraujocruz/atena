@@ -6,5 +6,5 @@ export default interface OrderDTO {
   typeOfHospitalization: string;
   sector: string;
   sex: string;
-  requester: string;
+  requesterId: string;
 }
