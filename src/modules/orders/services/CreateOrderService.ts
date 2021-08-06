@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 import Order from '@modules/orders/infra/typeorm/entities/Order';
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import OrderDTO from '@modules/orders/dtos/OrderDTO';
 import AppError from '@shared/errors/AppError';
@@ -12,8 +11,6 @@ export default class CreateDoctorService {
   constructor(
     @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
   ) {}
 
   public async execute({
@@ -23,7 +20,7 @@ export default class CreateDoctorService {
     typeOfHospitalization,
     sector,
     sex,
-    requester,
+    requesterId,
   }: IOrder): Promise<Order> {
     const findByUnimedProtocol =
       await this.ordersRepository.findByUnimedProtocol(unimedProtocol);
@@ -38,7 +35,7 @@ export default class CreateDoctorService {
       typeOfHospitalization,
       sector,
       sex,
-      requester,
+      requesterId,
     });
 
     return order;

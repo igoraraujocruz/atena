@@ -6,6 +6,9 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import OrdersRepository from '@modules/orders/infra/typeorm/repositories/OrdersRepository';
 
+import IOrderHistoriesRepository from '@modules/orders/repositories/IOrderHistoriesRepository';
+import OrderHistoriesRepository from '@modules/orders/infra/typeorm/repositories/OrderHistoriesRepository';
+
 import IRoleRepository from '@modules/users/repositories/IRoleRepository';
 import RolesRepository from '@modules/users/infra/typeorm/repositories/RolesRepository';
 
@@ -19,6 +22,11 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IOrdersRepository>(
   'OrdersRepository',
   OrdersRepository,
+);
+
+container.registerSingleton<IOrderHistoriesRepository>(
+  'OrderHistoriesRepository',
+  OrderHistoriesRepository,
 );
 
 container.registerSingleton<IRoleRepository>(

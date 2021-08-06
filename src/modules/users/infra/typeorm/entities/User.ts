@@ -7,8 +7,11 @@ import {
   DeleteDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import Order from '../../../../orders/infra/typeorm/entities/Order';
+import OrderHistorie from '../../../../orders/infra/typeorm/entities/OrderHistorie';
 import Role from './Role';
 
 @Entity('users')
@@ -36,6 +39,14 @@ export default class User {
     inverseJoinColumns: [{ name: 'role_id' }],
   })
   roles: Role[];
+
+  @OneToMany(() => Order, order => order.requester, { eager: true })
+  orders: Order[];
+
+  @OneToMany(() => OrderHistorie, orderHistorie => orderHistorie.user, {
+    eager: true,
+  })
+  orderHistories: OrderHistorie[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

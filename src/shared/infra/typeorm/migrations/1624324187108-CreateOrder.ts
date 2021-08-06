@@ -26,7 +26,7 @@ export default class CreateOrder1624324187108 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'requester',
+            name: 'requester_id',
             type: 'uuid',
           },
           {

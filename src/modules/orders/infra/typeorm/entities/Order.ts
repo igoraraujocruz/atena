@@ -5,8 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import User from '../../../../users/infra/typeorm/entities/User';
+import OrderHistorie from './OrderHistorie';
 
 @Entity('orders')
 export default class Order {
@@ -37,8 +42,17 @@ export default class Order {
   @Column()
   sex: string;
 
-  @Column()
-  requester: string;
+  @Column({ name: 'requester_id' })
+  requesterId: string;
+
+  @ManyToOne(() => User, user => user.orders)
+  @JoinColumn({ name: 'requester_id' })
+  requester: User;
+
+  @OneToMany(() => OrderHistorie, orderHistorie => orderHistorie.order, {
+    eager: true,
+  })
+  orderHistories: OrderHistorie[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

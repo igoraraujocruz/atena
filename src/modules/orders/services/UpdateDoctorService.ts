@@ -4,7 +4,7 @@ import AppError from '@shared/errors/AppError';
 import Order from '@modules/orders/infra/typeorm/entities/Order';
 import OrderDTO from '../dtos/OrderDTO';
 
-type IOrder = Omit<OrderDTO, 'requester'>;
+type IOrder = Omit<OrderDTO, 'requesterId'>;
 
 @injectable()
 export default class UpdateOrderService {
