@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateOrderHistorieService from '@modules/orders/services/CreateOrderHistorieService';
-import ListOrdersServices from '@modules/orders/services/ListOrdersServices';
+import GetOrderHistorieService from '@modules/orders/services/GetOrderHistorieService';
 import { classToClass } from 'class-transformer';
 
 export default class OrderHistoriesController {
@@ -19,11 +19,13 @@ export default class OrderHistoriesController {
     return response.status(200).json(classToClass(orderHistorie));
   }
 
-  public async list(_: Request, response: Response): Promise<Response> {
-    const listOrders = container.resolve(ListOrdersServices);
+  public async getOne(request: Request, response: Response): Promise<Response> {
+    const { order_id } = request.params;
 
-    const orders = await listOrders.execute();
+    const createOrderHistorie = container.resolve(GetOrderHistorieService);
 
-    return response.json(classToClass(orders));
+    const orderHistorie = await createOrderHistorie.execute(order_id);
+
+    return response.status(200).json(classToClass(orderHistorie));
   }
 }

@@ -16,9 +16,11 @@ export default class OrderHistoriesRepository
     return this.ormRepository.save(user);
   }
 
-  public async findOrderById(id: string): Promise<OrderHistorie | undefined> {
-    const findOrder = await this.ormRepository.findOne({
-      where: { id },
+  public async findOrderHistorieById(
+    order_id: string,
+  ): Promise<OrderHistorie[]> {
+    const findOrder = await this.ormRepository.find({
+      where: { order_id },
     });
     return findOrder;
   }
