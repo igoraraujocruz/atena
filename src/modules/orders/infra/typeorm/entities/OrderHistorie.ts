@@ -6,6 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import Order from './Order';
 import User from '../../../../users/infra/typeorm/entities/User';
 
@@ -18,6 +19,7 @@ export default class OrderHistorie {
   message: string;
 
   @Column()
+  @Exclude()
   order_id: string;
 
   @ManyToOne(() => Order, order => order.orderHistories)
@@ -25,6 +27,7 @@ export default class OrderHistorie {
   order: Order;
 
   @Column()
+  @Exclude()
   user_id: string;
 
   @ManyToOne(() => User, user => user.orderHistories)

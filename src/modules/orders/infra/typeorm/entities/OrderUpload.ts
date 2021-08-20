@@ -23,6 +23,7 @@ export default class OrderUploads {
   name: string;
 
   @Column()
+  @Exclude()
   order_id: string;
 
   @ManyToOne(() => Order, order => order.uploads)
@@ -30,6 +31,7 @@ export default class OrderUploads {
   order: Order;
 
   @Column()
+  @Exclude()
   user_id: string;
 
   @ManyToOne(() => User, user => user.uploads)
