@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import { isCelebrateError } from 'celebrate';
 import AppError from '@shared/errors/AppError';
 import cors from 'cors';
+import uploadConfig from '@config/upload';
 import routes from './routes';
 
 require('dotenv/config');
@@ -19,6 +20,7 @@ app.use(
     origin: 'http://localhost:3000',
   }),
 );
+app.use('/files', express.static(uploadConfig.uploadsFolder));
 app.use(routes);
 app.use((error: Error, _: Request, response: Response, __: NextFunction) => {
   if (error instanceof AppError) {

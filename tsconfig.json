@@ -10,15 +10,15 @@
     "allowJs": true,
     "baseUrl": "./src",
     "paths": {
-    "@modules/*": ["modules/*"],
-    "@config/*": ["config/*"],
-    "@shared/*": ["shared/*"]
+      "@modules/*": ["modules/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"]
     },
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
   },
   "include": [
     "src/**/*"

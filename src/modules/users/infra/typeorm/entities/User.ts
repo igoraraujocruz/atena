@@ -12,6 +12,7 @@ import {
 import { Exclude } from 'class-transformer';
 import Order from '../../../../orders/infra/typeorm/entities/Order';
 import OrderHistorie from '../../../../orders/infra/typeorm/entities/OrderHistorie';
+import OrderUpload from '../../../../orders/infra/typeorm/entities/OrderUpload';
 import Role from './Role';
 
 @Entity('users')
@@ -47,6 +48,11 @@ export default class User {
     eager: true,
   })
   orderHistories: OrderHistorie[];
+
+  @OneToMany(() => OrderUpload, upload => upload.user, {
+    eager: true,
+  })
+  uploads: OrderUpload[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
