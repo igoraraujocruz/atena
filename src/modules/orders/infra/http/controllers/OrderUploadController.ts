@@ -1,22 +1,23 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateOrderHistorieService from '@modules/orders/services/CreateOrderHistorieService';
+import UploadOrderService from '@modules/orders/services/UploadOrderService';
 import GetOrderHistorieService from '@modules/orders/services/GetOrderHistorieService';
 import { classToClass } from 'class-transformer';
 
 export default class OrderHistoriesController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { message, order_id, user_id } = request.body;
+    const { name, order_id, user_id } = request.body;
 
-    const createOrderHistorie = container.resolve(CreateOrderHistorieService);
+    const uploadOrderDocument = container.resolve(UploadOrderService);
 
-    const orderHistorie = await createOrderHistorie.execute({
-      message,
+    const orderUpload = await uploadOrderDocument.execute({
+      file: request.file?.filename,
+      name,
       order_id,
       user_id,
     });
 
-    return response.status(200).json(classToClass(orderHistorie));
+    return response.status(200).json(classToClass(orderUpload));
   }
 
   public async getOne(request: Request, response: Response): Promise<Response> {

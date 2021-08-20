@@ -20,9 +20,14 @@ ordersHistoriesRouter.post(
 );
 
 ordersHistoriesRouter.get(
-  '/',
+  '/:order_id',
   ensureAuthenticated,
-  ordersHistoriesController.list,
+  celebrate({
+    [Segments.PARAMS]: {
+      order_id: Joi.string().uuid().required(),
+    },
+  }),
+  ordersHistoriesController.getOne,
 );
 
 export default ordersHistoriesRouter;
