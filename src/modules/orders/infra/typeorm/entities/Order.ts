@@ -8,11 +8,13 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import User from '../../../../users/infra/typeorm/entities/User';
 import OrderHistorie from './OrderHistorie';
 import OrderUpload from './OrderUpload';
+import Sector from './Sector';
 
 @Entity('orders')
 export default class Order {
@@ -38,9 +40,6 @@ export default class Order {
   typeOfHospitalization: string;
 
   @Column()
-  sector: string;
-
-  @Column()
   sex: string;
 
   @Column({ name: 'requester_id' })
@@ -59,6 +58,11 @@ export default class Order {
     eager: true,
   })
   uploads: OrderUpload[];
+
+  @OneToOne(() => Sector, sector => sector.order, {
+    eager: true,
+  })
+  sector: Sector;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

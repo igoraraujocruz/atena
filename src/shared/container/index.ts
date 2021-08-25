@@ -15,6 +15,9 @@ import OrderUploadRepository from '@modules/orders/infra/typeorm/repositories/Or
 import IRoleRepository from '@modules/users/repositories/IRoleRepository';
 import RolesRepository from '@modules/users/infra/typeorm/repositories/RolesRepository';
 
+import ISectorRepository from '@modules/orders/repositories/ISectorRepository';
+import SectorRepository from '@modules/orders/infra/typeorm/repositories/SectorRepository';
+
 import '@modules/users/providers';
 
 container.registerSingleton<IUsersRepository>(
@@ -40,4 +43,9 @@ container.registerSingleton<IOrderUploadRepository>(
 container.registerSingleton<IRoleRepository>(
   'RolesRepository',
   RolesRepository,
+);
+
+container.registerSingleton<ISectorRepository>(
+  'SectorRepository',
+  SectorRepository,
 );

@@ -8,14 +8,8 @@ import UpdateOrderService from '@modules/orders/services/UpdateDoctorService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const {
-      name,
-      unimedProtocol,
-      unimedCard,
-      typeOfHospitalization,
-      sector,
-      sex,
-    } = request.body;
+    const { name, unimedProtocol, unimedCard, typeOfHospitalization, sex } =
+      request.body;
 
     const createOrder = container.resolve(CreateOrderService);
 
@@ -24,7 +18,6 @@ export default class OrdersController {
       unimedProtocol,
       unimedCard,
       typeOfHospitalization,
-      sector,
       sex,
       requesterId: request.user.id,
     });
@@ -35,14 +28,8 @@ export default class OrdersController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const {
-      name,
-      unimedProtocol,
-      unimedCard,
-      typeOfHospitalization,
-      sector,
-      sex,
-    } = request.body;
+    const { name, unimedProtocol, unimedCard, typeOfHospitalization, sex } =
+      request.body;
 
     const updateOrder = container.resolve(UpdateOrderService);
 
@@ -52,7 +39,6 @@ export default class OrdersController {
       unimedProtocol,
       unimedCard,
       typeOfHospitalization,
-      sector,
       sex,
     });
 

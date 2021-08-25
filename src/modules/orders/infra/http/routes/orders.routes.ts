@@ -15,7 +15,6 @@ ordersRouter.post(
       unimedProtocol: Joi.string().required(),
       unimedCard: Joi.string().required(),
       typeOfHospitalization: Joi.string().required(),
-      sector: Joi.string().required(),
       sex: Joi.string().required(),
     },
   }),

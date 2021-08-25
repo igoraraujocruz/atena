@@ -4,7 +4,6 @@ export default interface OrderDTO {
   unimedProtocol: string;
   unimedCard: string;
   typeOfHospitalization: string;
-  sector: string;
   sex: string;
   requesterId: string;
 }

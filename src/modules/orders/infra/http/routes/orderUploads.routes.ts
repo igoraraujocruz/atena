@@ -18,6 +18,7 @@ orderUploadsRouter.post(
       name: Joi.string().required(),
       order_id: Joi.string().required().uuid(),
       user_id: Joi.string().required().uuid(),
+      message: Joi.string(),
     },
   }),
   orderUploadsController.create,
@@ -31,7 +32,7 @@ orderUploadsRouter.get(
       order_id: Joi.string().uuid().required(),
     },
   }),
-  orderUploadsController.getOne,
+  orderUploadsController.getAllByOrderId,
 );
 
 export default orderUploadsRouter;

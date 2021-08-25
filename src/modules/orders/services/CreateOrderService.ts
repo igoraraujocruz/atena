@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import Order from '@modules/orders/infra/typeorm/entities/Order';
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
+import ISectorRepository from '@modules/orders/repositories/ISectorRepository';
 import OrderDTO from '@modules/orders/dtos/OrderDTO';
 import AppError from '@shared/errors/AppError';
 
@@ -11,6 +12,9 @@ export default class CreateDoctorService {
   constructor(
     @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
+
+    @inject('SectorRepository')
+    private sectorRepository: ISectorRepository,
   ) {}
 
   public async execute({
@@ -18,7 +22,6 @@ export default class CreateDoctorService {
     unimedProtocol,
     unimedCard,
     typeOfHospitalization,
-    sector,
     sex,
     requesterId,
   }: IOrder): Promise<Order> {
@@ -33,7 +36,6 @@ export default class CreateDoctorService {
       unimedProtocol,
       unimedCard,
       typeOfHospitalization,
-      sector,
       sex,
       requesterId,
     });

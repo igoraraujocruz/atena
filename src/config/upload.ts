@@ -25,13 +25,12 @@ interface IUploadConfig {
 
 export default {
   driver: process.env.STORAGE_DRIVER,
-
   tmpFolder,
   uploadsFolder,
 
   multer: {
     storage: multer.diskStorage({
-      destination: tmpFolder,
+      destination: uploadsFolder,
       filename(request, file, callback) {
         const fileHash = crypto.randomBytes(10).toString('hex');
         const fileName = `${fileHash}-${file.originalname
@@ -45,7 +44,12 @@ export default {
       fileSize: 8000000,
     },
     fileFilter: (request: any, file: any, callback: any) => {
-      const formats = ['image/jpg', 'image/jpeg', 'image/png'];
+      const formats = [
+        'image/jpg',
+        'image/jpeg',
+        'image/png',
+        'application/pdf',
+      ];
 
       if (formats.includes(file.mimetype)) {
         callback(null, true);

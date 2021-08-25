@@ -5,13 +5,13 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class CreateTableUpload1629220226005
+export default class CreateSectorTable1629755701327
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'uploads',
+        name: 'sectors',
         columns: [
           {
             name: 'id',
@@ -19,10 +19,6 @@ export default class CreateTableUpload1629220226005
             isPrimary: true,
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
-          },
-          {
-            name: 'file',
-            type: 'varchar',
           },
           {
             name: 'name',
@@ -34,19 +30,29 @@ export default class CreateTableUpload1629220226005
             isNullable: true,
           },
           {
-            name: 'url',
+            name: 'hotel_management_user_id',
             type: 'varchar',
+            isNullable: true,
           },
           {
-            name: 'order_id',
-            type: 'uuid',
+            name: 'isClean',
+            type: 'boolean',
           },
           {
             name: 'user_id',
             type: 'uuid',
           },
           {
+            name: 'order_id',
+            type: 'uuid',
+          },
+          {
             name: 'created_at',
+            type: 'timestamp',
+            default: 'now()',
+          },
+          {
+            name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
           },
@@ -59,32 +65,32 @@ export default class CreateTableUpload1629220226005
       }),
     );
     await queryRunner.createForeignKey(
-      'uploads',
+      'sectors',
       new TableForeignKey({
+        name: 'OrderSectorForeignKey',
         columnNames: ['order_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'orders',
-        name: 'fk_orderUploads',
-        onDelete: 'CASCADE',
-        onUpdate: 'SET NULL',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       }),
     );
     await queryRunner.createForeignKey(
-      'uploads',
+      'sectors',
       new TableForeignKey({
+        name: 'UserSectorForeignKey',
         columnNames: ['user_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
-        name: 'fk_orderUploadsUsers',
-        onDelete: 'CASCADE',
-        onUpdate: 'SET NULL',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('uploads', 'fk_orderUploadsUsers');
-    await queryRunner.dropForeignKey('uploads', 'fk_orderUploads');
-    await queryRunner.dropTable('uploads');
+    await queryRunner.dropForeignKey('sectors', 'UserSectorForeignKey');
+    await queryRunner.dropForeignKey('sectors', 'OrderSectorForeignKey');
+    await queryRunner.dropTable('sectors');
   }
 }
