@@ -13,13 +13,13 @@ import { Exclude } from 'class-transformer';
 import Order from './Order';
 import User from '../../../../users/infra/typeorm/entities/User';
 
-@Entity('sectors')
-export default class Sector {
+@Entity('roomRequests')
+export default class RoomRequest {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  name: string;
+  room: string;
 
   @Column()
   message: string;
@@ -33,14 +33,14 @@ export default class Sector {
   @Column()
   hotel_management_user_id: string;
 
-  @ManyToOne(() => User, user => user.sectors)
+  @ManyToOne(() => User, user => user.roomRequests)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column()
   order_id: string;
 
-  @OneToOne(() => Order, order => order.sector)
+  @OneToOne(() => Order, order => order.roomRequest)
   @JoinColumn({ name: 'order_id' })
   order: Order;
 

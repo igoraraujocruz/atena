@@ -30,6 +30,13 @@ export default class OrdersRepository implements IOrdersRepository {
     return findOrder;
   }
 
+  public async findOrderByRoom(room: string): Promise<Order | undefined> {
+    const findOrder = await this.ormRepository.findOne({
+      where: { room },
+    });
+    return findOrder;
+  }
+
   public async delete(id: string): Promise<void> {
     await this.ormRepository.softDelete(id);
   }

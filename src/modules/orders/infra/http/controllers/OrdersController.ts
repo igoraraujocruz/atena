@@ -4,12 +4,19 @@ import CreateOrderService from '@modules/orders/services/CreateOrderService';
 import ListOrdersServices from '@modules/orders/services/ListOrdersServices';
 import { classToClass } from 'class-transformer';
 import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
-import UpdateOrderService from '@modules/orders/services/UpdateDoctorService';
+import UpdateOrderService from '@modules/orders/services/UpdateOrderService';
+import UpdateEmergencyRoom from '@modules/orders/services/UpdateRoomService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, unimedProtocol, unimedCard, typeOfHospitalization, sex } =
-      request.body;
+    const {
+      name,
+      unimedProtocol,
+      unimedCard,
+      typeOfHospitalization,
+      sex,
+      room = true,
+    } = request.body;
 
     const createOrder = container.resolve(CreateOrderService);
 
@@ -18,6 +25,7 @@ export default class OrdersController {
       unimedProtocol,
       unimedCard,
       typeOfHospitalization,
+      room,
       sex,
       requesterId: request.user.id,
     });
@@ -28,8 +36,14 @@ export default class OrdersController {
   public async update(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const { name, unimedProtocol, unimedCard, typeOfHospitalization, sex } =
-      request.body;
+    const {
+      name,
+      unimedProtocol,
+      unimedCard,
+      typeOfHospitalization,
+      sex,
+      room,
+    } = request.body;
 
     const updateOrder = container.resolve(UpdateOrderService);
 
@@ -39,6 +53,7 @@ export default class OrdersController {
       unimedProtocol,
       unimedCard,
       typeOfHospitalization,
+      room,
       sex,
     });
 
@@ -61,5 +76,21 @@ export default class OrdersController {
     const orders = await listOrders.execute();
 
     return response.json(classToClass(orders));
+  }
+
+  public async updateRoom(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { id, room } = request.body;
+    const updateRoom = container.resolve(UpdateEmergencyRoom);
+
+    const emergencyRoomUpdated = await updateRoom.execute({
+      authorizer_id: request.user.id,
+      id,
+      room,
+    });
+
+    return response.json(classToClass(emergencyRoomUpdated));
   }
 }

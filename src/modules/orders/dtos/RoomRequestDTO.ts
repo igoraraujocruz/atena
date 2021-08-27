@@ -1,6 +1,6 @@
-export default interface SectorDTO {
+export default interface RoomRequestDTO {
   id: string;
-  name: string;
+  room: string;
   order_id: string;
   isClean: boolean;
   hotel_management_user_id?: string;

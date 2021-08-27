@@ -34,6 +34,16 @@ export default class CreateOrder1624324187108 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'room',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'authorizer_id',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'sex',
             type: 'varchar',
           },

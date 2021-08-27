@@ -21,6 +21,18 @@ ordersRouter.post(
   ordersController.create,
 );
 
+ordersRouter.patch(
+  '/',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      id: Joi.string().required().uuid(),
+      room: Joi.string().required(),
+    },
+  }),
+  ordersController.updateRoom,
+);
+
 ordersRouter.delete(
   '/:id',
   ensureAuthenticated,
@@ -42,7 +54,6 @@ ordersRouter.put(
       unimedProtocol: Joi.string().required(),
       unimedCard: Joi.string().required(),
       typeOfHospitalization: Joi.string().required(),
-      sector: Joi.string().required(),
       sex: Joi.string().required(),
     },
   }),

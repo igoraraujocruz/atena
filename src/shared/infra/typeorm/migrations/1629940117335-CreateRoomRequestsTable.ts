@@ -5,13 +5,13 @@ import {
   TableForeignKey,
 } from 'typeorm';
 
-export default class CreateSectorTable1629755701327
+export default class CreateRoomRequestsTable1629940117335
   implements MigrationInterface
 {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'sectors',
+        name: 'roomRequests',
         columns: [
           {
             name: 'id',
@@ -21,7 +21,7 @@ export default class CreateSectorTable1629755701327
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'name',
+            name: 'room',
             type: 'varchar',
           },
           {
@@ -65,9 +65,9 @@ export default class CreateSectorTable1629755701327
       }),
     );
     await queryRunner.createForeignKey(
-      'sectors',
+      'roomRequests',
       new TableForeignKey({
-        name: 'OrderSectorForeignKey',
+        name: 'OrderRoomRequestsForeignKey',
         columnNames: ['order_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'orders',
@@ -76,9 +76,9 @@ export default class CreateSectorTable1629755701327
       }),
     );
     await queryRunner.createForeignKey(
-      'sectors',
+      'roomRequests',
       new TableForeignKey({
-        name: 'UserSectorForeignKey',
+        name: 'UserRoomRequestsForeignKey',
         columnNames: ['user_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
@@ -89,8 +89,14 @@ export default class CreateSectorTable1629755701327
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('sectors', 'UserSectorForeignKey');
-    await queryRunner.dropForeignKey('sectors', 'OrderSectorForeignKey');
-    await queryRunner.dropTable('sectors');
+    await queryRunner.dropForeignKey(
+      'roomRequests',
+      'UserRoomRequestsForeignKey',
+    );
+    await queryRunner.dropForeignKey(
+      'roomRequests',
+      'OrderRoomRequestsForeignKey',
+    );
+    await queryRunner.dropTable('roomRequests');
   }
 }

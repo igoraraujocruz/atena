@@ -14,7 +14,7 @@ import { Exclude } from 'class-transformer';
 import User from '../../../../users/infra/typeorm/entities/User';
 import OrderHistorie from './OrderHistorie';
 import OrderUpload from './OrderUpload';
-import Sector from './Sector';
+import RoomRequest from './RoomRequest';
 
 @Entity('orders')
 export default class Order {
@@ -42,6 +42,12 @@ export default class Order {
   @Column()
   sex: string;
 
+  @Column()
+  authorizer_id: string;
+
+  @Column()
+  room: string;
+
   @Column({ name: 'requester_id' })
   requesterId: string;
 
@@ -59,10 +65,10 @@ export default class Order {
   })
   uploads: OrderUpload[];
 
-  @OneToOne(() => Sector, sector => sector.order, {
+  @OneToOne(() => RoomRequest, roomRequest => roomRequest.order, {
     eager: true,
   })
-  sector: Sector;
+  roomRequest: RoomRequest;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import Order from '../../../../orders/infra/typeorm/entities/Order';
-import Sector from '../../../../orders/infra/typeorm/entities/Sector';
+import RoomRequest from '../../../../orders/infra/typeorm/entities/RoomRequest';
 import OrderHistorie from '../../../../orders/infra/typeorm/entities/OrderHistorie';
 import OrderUpload from '../../../../orders/infra/typeorm/entities/OrderUpload';
 import Role from './Role';
@@ -45,8 +45,8 @@ export default class User {
   @OneToMany(() => Order, order => order.requester, { eager: true })
   orders: Order[];
 
-  @OneToMany(() => Sector, sector => sector.user)
-  sectors: Sector[];
+  @OneToMany(() => RoomRequest, roomRequest => roomRequest.user)
+  roomRequests: RoomRequest[];
 
   @OneToMany(() => OrderHistorie, orderHistorie => orderHistorie.user, {
     eager: true,

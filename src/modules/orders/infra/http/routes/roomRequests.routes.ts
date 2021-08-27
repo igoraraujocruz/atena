@@ -1,25 +1,25 @@
 import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
-import SectorController from '@modules/orders/infra/http/controllers/SectorController';
+import RoomRequestsController from '@modules/orders/infra/http/controllers/RoomRequestsController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
-const orderSectorRouter = Router();
-const orderSectorController = new SectorController();
+const roomRequestsRouter = Router();
+const roomRequestsController = new RoomRequestsController();
 
-orderSectorRouter.post(
+roomRequestsRouter.post(
   '/',
   ensureAuthenticated,
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().required(),
+      room: Joi.string().required(),
       order_id: Joi.string().required().uuid(),
       message: Joi.string(),
     },
   }),
-  orderSectorController.create,
+  roomRequestsController.create,
 );
 
-orderSectorRouter.patch(
+roomRequestsRouter.patch(
   '/',
   ensureAuthenticated,
   celebrate({
@@ -27,10 +27,10 @@ orderSectorRouter.patch(
       id: Joi.string().required().uuid(),
     },
   }),
-  orderSectorController.updateIsClean,
+  roomRequestsController.updateIsClean,
 );
 
-orderSectorRouter.delete(
+roomRequestsRouter.delete(
   '/:id',
   ensureAuthenticated,
   celebrate({
@@ -38,7 +38,7 @@ orderSectorRouter.delete(
       id: Joi.string().required().uuid(),
     },
   }),
-  orderSectorController.remove,
+  roomRequestsController.remove,
 );
 
-export default orderSectorRouter;
+export default roomRequestsRouter;
