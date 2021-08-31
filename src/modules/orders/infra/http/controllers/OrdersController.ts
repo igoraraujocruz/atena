@@ -82,7 +82,7 @@ export default class OrdersController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { id, room } = request.body;
+    const { room, id } = request.body;
     const updateRoom = container.resolve(UpdateEmergencyRoom);
 
     const emergencyRoomUpdated = await updateRoom.execute({

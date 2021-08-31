@@ -4,7 +4,7 @@ import UploadOrderService from '@modules/orders/services/UploadOrderService';
 import GetUploadOrderService from '@modules/orders/services/GetUploadOrderService';
 import { classToClass } from 'class-transformer';
 
-export default class OrderHistoriesController {
+export default class OrderUploadController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, order_id, user_id, message } = request.body;
     const file = request.file?.filename;

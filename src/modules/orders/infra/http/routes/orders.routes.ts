@@ -22,12 +22,12 @@ ordersRouter.post(
 );
 
 ordersRouter.patch(
-  '/',
+  '/:id',
   ensureAuthenticated,
   celebrate({
     [Segments.BODY]: {
-      id: Joi.string().required().uuid(),
       room: Joi.string().required(),
+      id: Joi.string().required().uuid(),
     },
   }),
   ordersController.updateRoom,
