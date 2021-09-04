@@ -82,13 +82,12 @@ export default class OrdersController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { room, id } = request.body;
+    const { id } = request.body;
     const updateRoom = container.resolve(UpdateEmergencyRoom);
 
     const emergencyRoomUpdated = await updateRoom.execute({
       authorizer_id: request.user.id,
       id,
-      room,
     });
 
     return response.json(classToClass(emergencyRoomUpdated));

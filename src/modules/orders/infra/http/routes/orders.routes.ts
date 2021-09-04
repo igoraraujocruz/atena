@@ -25,8 +25,7 @@ ordersRouter.patch(
   '/:id',
   ensureAuthenticated,
   celebrate({
-    [Segments.BODY]: {
-      room: Joi.string().required(),
+    [Segments.PARAMS]: {
       id: Joi.string().required().uuid(),
     },
   }),

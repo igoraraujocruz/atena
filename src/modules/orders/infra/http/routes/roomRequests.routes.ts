@@ -20,10 +20,10 @@ roomRequestsRouter.post(
 );
 
 roomRequestsRouter.patch(
-  '/',
+  '/:id',
   ensureAuthenticated,
   celebrate({
-    [Segments.BODY]: {
+    [Segments.PARAMS]: {
       id: Joi.string().required().uuid(),
     },
   }),

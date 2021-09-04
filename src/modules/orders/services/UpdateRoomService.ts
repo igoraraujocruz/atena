@@ -3,28 +3,30 @@ import Order from '@modules/orders/infra/typeorm/entities/Order';
 import IOrdersRepository from '@modules/orders/repositories/IOrdersRepository';
 import OrderDTO from '@modules/orders/dtos/OrderDTO';
 import AppError from '@shared/errors/AppError';
+import IRoomRequestsRepository from '@modules/orders/repositories/IRoomRequestsRepository';
 
-type ISector = Pick<OrderDTO, 'id' | 'authorizer_id' | 'room'>;
+type ISector = Pick<OrderDTO, 'id' | 'authorizer_id'>;
 
 @injectable()
-export default class CreateDoctorService {
+export default class UpdateRoomService {
   constructor(
     @inject('OrdersRepository')
     private ordersRepository: IOrdersRepository,
+    @inject('RoomRequestsRepository')
+    private roomRequestsRepository: IRoomRequestsRepository,
   ) {}
 
-  public async execute({ id, authorizer_id, room }: ISector): Promise<Order> {
+  public async execute({ id, authorizer_id }: ISector): Promise<Order> {
     const order = await this.ordersRepository.findOrderById(id);
 
     if (!order) {
       throw new AppError('Order not found');
     }
 
-    const findOrderByRoom = await this.ordersRepository.findOrderByRoom(room);
+    const transferRoom =
+      await this.roomRequestsRepository.findRoomRequestByOrder(order.id);
 
-    if (findOrderByRoom) {
-      throw new AppError('This room is already in use');
-    }
+    const room = transferRoom?.room;
 
     Object.assign(order, { authorizer_id, room });
     return this.ordersRepository.save(order);

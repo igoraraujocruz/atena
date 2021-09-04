@@ -7,7 +7,7 @@ import AppError from '@shared/errors/AppError';
 type IRoomRequest = Pick<RoomRequestDTO, 'id' | 'hotel_management_user_id'>;
 
 @injectable()
-export default class CreateDoctorService {
+export default class UpdateRoomRequestService {
   constructor(
     @inject('RoomRequestsRepository')
     private roomRequestsRepository: IRoomRequestsRepository,

@@ -26,7 +26,7 @@ export default class RoomRequestsController {
     request: Request,
     response: Response,
   ): Promise<Response> {
-    const { id } = request.body;
+    const { id } = request.params;
     const updateIsClean = container.resolve(UpdateRoomRequestService);
 
     const roomUpdated = await updateIsClean.execute({
