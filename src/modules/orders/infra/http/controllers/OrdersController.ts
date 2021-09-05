@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import CreateOrderService from '@modules/orders/services/CreateOrderService';
 import ListOrdersServices from '@modules/orders/services/ListOrdersServices';
+import GetOneOrderServices from '@modules/orders/services/GetOneOrderServices';
 import { classToClass } from 'class-transformer';
 import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
 import UpdateOrderService from '@modules/orders/services/UpdateOrderService';
@@ -74,6 +75,15 @@ export default class OrdersController {
     const listOrders = container.resolve(ListOrdersServices);
 
     const orders = await listOrders.execute();
+
+    return response.json(classToClass(orders));
+  }
+
+  public async getOne(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+    const getOneOrder = container.resolve(GetOneOrderServices);
+
+    const orders = await getOneOrder.execute(id);
 
     return response.json(classToClass(orders));
   }

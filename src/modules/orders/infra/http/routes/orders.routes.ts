@@ -61,4 +61,6 @@ ordersRouter.put(
 
 ordersRouter.get('/', ensureAuthenticated, ordersController.list);
 
+ordersRouter.get('/:id', ensureAuthenticated, ordersController.getOne);
+
 export default ordersRouter;
