@@ -24,11 +24,15 @@ export default class UpdateRoomService {
     }
 
     const transferRoom =
-      await this.roomRequestsRepository.findRoomRequestByOrder(order.id);
+      await this.roomRequestsRepository.findAllRoomRequestByOrder(order.id);
 
-    const room = transferRoom?.room;
+    if (transferRoom) {
+      const rooms = transferRoom[transferRoom?.length - 1];
+      const room = rooms?.room;
+      Object.assign(order, { authorizer_id, room });
+      return this.ordersRepository.save(order);
+    }
 
-    Object.assign(order, { authorizer_id, room });
     return this.ordersRepository.save(order);
   }
 }

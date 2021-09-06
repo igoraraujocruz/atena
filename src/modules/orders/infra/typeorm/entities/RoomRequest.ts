@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  OneToOne,
   JoinColumn,
   ManyToOne,
 } from 'typeorm';
@@ -40,7 +39,7 @@ export default class RoomRequest {
   @Column()
   order_id: string;
 
-  @OneToOne(() => Order, order => order.roomRequest)
+  @ManyToOne(() => Order, order => order.roomRequest)
   @JoinColumn({ name: 'order_id' })
   order: Order;
 

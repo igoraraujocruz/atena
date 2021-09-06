@@ -7,5 +7,8 @@ export default interface IRoomRequestsRepository {
   findRoomRequestByName(name: string): Promise<RoomRequest | undefined>;
   findRoomRequestById(id: string): Promise<RoomRequest | undefined>;
   findRoomRequestByOrder(order_id: string): Promise<RoomRequest | undefined>;
+  findAllRoomRequestByOrder(
+    order_id: string,
+  ): Promise<RoomRequest[] | undefined>;
   delete(id: string): Promise<void>;
 }

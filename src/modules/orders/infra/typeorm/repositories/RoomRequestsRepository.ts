@@ -50,6 +50,18 @@ export default class RoomRequestsRepository implements IRoomRequestsRepository {
     return findRoom;
   }
 
+  public async findAllRoomRequestByOrder(
+    order_id: string,
+  ): Promise<RoomRequest[] | undefined> {
+    const findRoom = this.ormRepository.find({
+      where: {
+        order_id,
+      },
+    });
+
+    return findRoom;
+  }
+
   public async find(): Promise<RoomRequest[]> {
     const rooms = await this.ormRepository.find();
     return rooms;

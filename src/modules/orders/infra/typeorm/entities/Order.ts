@@ -8,7 +8,6 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
-  OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import User from '../../../../users/infra/typeorm/entities/User';
@@ -65,10 +64,10 @@ export default class Order {
   })
   uploads: OrderUpload[];
 
-  @OneToOne(() => RoomRequest, roomRequest => roomRequest.order, {
+  @OneToMany(() => RoomRequest, roomRequest => roomRequest.order, {
     eager: true,
   })
-  roomRequest: RoomRequest;
+  roomRequest: RoomRequest[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
