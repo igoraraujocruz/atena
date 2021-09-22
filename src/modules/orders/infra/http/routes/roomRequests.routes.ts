@@ -13,7 +13,7 @@ roomRequestsRouter.post(
     [Segments.BODY]: {
       room: Joi.string().required(),
       order_id: Joi.string().required().uuid(),
-      message: Joi.string(),
+      message: Joi.string().optional().allow(''),
     },
   }),
   roomRequestsController.create,

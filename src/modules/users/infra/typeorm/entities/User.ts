@@ -42,7 +42,7 @@ export default class User {
   })
   roles: Role[];
 
-  @OneToMany(() => Order, order => order.requester, { eager: true })
+  @OneToMany(() => Order, order => order.requester)
   orders: Order[];
 
   @OneToMany(() => RoomRequest, roomRequest => roomRequest.user)

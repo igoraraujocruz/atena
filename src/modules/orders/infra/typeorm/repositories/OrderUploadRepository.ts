@@ -10,8 +10,8 @@ export default class OrderUploadRepository implements IOrderUploadRepository {
   }
 
   public async create(data: Partial<OrderUpload>): Promise<OrderUpload> {
-    const user = this.ormRepository.create(data);
-    return this.ormRepository.save(user);
+    const upload = this.ormRepository.create(data);
+    return this.ormRepository.save(upload);
   }
 
   public async findOrderUploadById(order_id: string): Promise<OrderUpload[]> {

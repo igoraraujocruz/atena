@@ -18,7 +18,7 @@ orderUploadsRouter.post(
       name: Joi.string().required(),
       order_id: Joi.string().required().uuid(),
       user_id: Joi.string().required().uuid(),
-      message: Joi.string(),
+      message: Joi.string().optional().allow(''),
     },
   }),
   orderUploadsController.create,
