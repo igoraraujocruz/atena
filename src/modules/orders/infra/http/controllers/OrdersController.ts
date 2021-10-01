@@ -6,7 +6,7 @@ import GetOneOrderServices from '@modules/orders/services/GetOneOrderServices';
 import { classToClass } from 'class-transformer';
 import DeleteOrderService from '@modules/orders/services/DeleteOrderService';
 import UpdateOrderService from '@modules/orders/services/UpdateOrderService';
-import UpdateEmergencyRoom from '@modules/orders/services/UpdateRoomService';
+import UpdateRoomService from '@modules/orders/services/UpdateRoomService';
 
 export default class OrdersController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -93,7 +93,7 @@ export default class OrdersController {
     response: Response,
   ): Promise<Response> {
     const { id } = request.body;
-    const updateRoom = container.resolve(UpdateEmergencyRoom);
+    const updateRoom = container.resolve(UpdateRoomService);
 
     const emergencyRoomUpdated = await updateRoom.execute({
       authorizer_id: request.user.id,
